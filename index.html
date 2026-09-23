@@ -1,14 +1,14 @@
 <!DOCTYPE html>
-<html lang="es" class="scroll-smooth">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Josemanuel | Software, VR & Data Architecture</title>
+    <title>Josemanuel | LVL 23 Developer</title>
     
-    <!-- Fuentes: Inter (Corporativa/Legible) y JetBrains Mono (Toque tecnológico/Hacker) -->
+    <!-- Fuentes: Bebas Neue (Títulos GTA) e Inter (Texto base) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -17,662 +17,564 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <style>
-        /* ================= TEMA: TECH SUNSET (Por defecto) ================= */
+        /* ================= TEMA: LEONIDA SUNSET (Default) ================= */
         :root {
-            --accent-main: #ff2a75; /* Rosa Neón Corporativo */
-            --accent-sec: #ff9e00;  /* Naranja Técnico */
-            --bg-base: #050507;
-            --bg-surface: rgba(20, 20, 25, 0.6);
-            --border-glass: rgba(255, 42, 117, 0.2);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --glow-spread: rgba(255, 42, 117, 0.15);
+            --primary: #ff2a75;
+            --primary-glow: rgba(255, 42, 117, 0.6);
+            --secondary: #ff9e00;
+            --bg-color: #0a0a0c;
+            --bg-gradient: linear-gradient(135deg, #0a0a0c 0%, #1c1023 40%, #4a154b 80%, #ff6a00 100%);
+            --glass-bg: rgba(20, 15, 25, 0.65);
+            --glass-border: rgba(255, 42, 117, 0.3);
+            --text-main: #ffffff;
+            --text-muted: #9ca3af;
+            --grid-color: rgba(255, 255, 255, 0.03);
         }
 
-        /* ================= TEMA: CYBER DATA (Hacker / Big Data) ================= */
-        html.theme-cyber {
-            --accent-main: #39ff14; /* Verde Lima Data */
-            --accent-sec: #00f0ff;  /* Cyan Ciberseguridad */
-            --bg-base: #020503;
-            --bg-surface: rgba(5, 15, 10, 0.6);
-            --border-glass: rgba(57, 255, 20, 0.2);
-            --text-primary: #f8fafc;
-            --text-secondary: #8b9cad;
-            --glow-spread: rgba(57, 255, 20, 0.15);
+        /* ================= TEMA: HEIST LIME (Hacker / Dark) ================= */
+        html.theme-heist {
+            --primary: #39ff14;
+            --primary-glow: rgba(57, 255, 20, 0.6);
+            --secondary: #00ffcc;
+            --bg-color: #030503;
+            --bg-gradient: linear-gradient(135deg, #020302 0%, #0a120a 40%, #0d2612 80%, #17401a 100%);
+            --glass-bg: rgba(5, 10, 5, 0.85);
+            --glass-border: rgba(57, 255, 20, 0.3);
+            --text-main: #f3f4f6;
+            --text-muted: #6b7280;
+            --grid-color: rgba(57, 255, 20, 0.03);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-base);
-            color: var(--text-primary);
+            color: var(--text-main);
+            background-color: var(--bg-color);
             overflow-x: hidden;
-            transition: background-color 0.5s ease;
+            scroll-behavior: smooth;
         }
 
-        .font-mono-tech {
-            font-family: 'JetBrains Mono', monospace;
+        h1, h2, h3, h4, .gta-font {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 2px;
         }
 
-        /* Fondos Ambientales Premium */
-        .ambient-glow {
+        /* Fondos Animados Multicapa */
+        .bg-layer-gradient {
             position: fixed;
-            width: 60vw;
-            height: 60vw;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-spread) 0%, transparent 70%);
-            top: -20vh;
-            left: -10vw;
-            z-index: -2;
-            pointer-events: none;
-            transition: background 0.8s ease;
-        }
-
-        .ambient-glow-2 {
-            position: fixed;
-            width: 50vw;
-            height: 50vw;
-            border-radius: 50%;
-            background: radial-gradient(circle, var(--glow-spread) 0%, transparent 70%);
-            bottom: -20vh;
-            right: -10vw;
-            z-index: -2;
-            pointer-events: none;
-            transition: background 0.8s ease;
-        }
-
-        .grid-bg {
-            position: fixed;
-            inset: 0;
-            background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
-            background-size: 40px 40px;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: var(--bg-gradient);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
             z-index: -3;
+            transition: background 0.5s ease;
         }
 
-        /* Glassmorphism Corporativo */
-        .glass-card {
-            background: var(--bg-surface);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255,255,255,0.05);
-            border-top: 1px solid rgba(255,255,255,0.1);
-            border-radius: 16px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        .bg-layer-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+                              linear-gradient(90deg, var(--grid-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+            transform: perspective(500px) rotateX(60deg) translateY(-100px) translateZ(-200px);
+            animation: gridMove 10s linear infinite;
+        }
+
+        .noise-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: url('data:image/svg+xml,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noise"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noise)"/%3E%3C/svg%3E');
+            opacity: 0.04;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        @keyframes gridMove {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 40px; }
+        }
+
+        /* Paneles Glassmorphism */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
             position: relative;
             overflow: hidden;
         }
 
-        .glass-card::after {
+        .glass-panel::before {
             content: '';
             position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            padding: 1px;
-            background: linear-gradient(135deg, var(--border-glass), transparent 50%);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            pointer-events: none;
-            opacity: 0.5;
-            transition: opacity 0.4s ease;
+            top: 0; left: -100%;
+            width: 50%; height: 100%;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.05), transparent);
+            transform: skewX(-20deg);
+            transition: 0.5s;
         }
 
-        .glass-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(0,0,0,0.4), 0 0 20px var(--glow-spread);
+        .glass-panel:hover::before {
+            left: 150%;
         }
 
-        .glass-card:hover::after {
-            opacity: 1;
-            background: linear-gradient(135deg, var(--accent-main), transparent 70%);
+        .glass-panel:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.7), 0 0 20px var(--primary-glow);
         }
 
-        /* Utilidades de Texto */
+        /* Textos y Utilidades */
         .text-gradient {
-            background: linear-gradient(135deg, var(--accent-main), var(--accent-sec));
+            background: linear-gradient(to right, var(--primary), var(--secondary));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
+        
+        .glow-text {
+            text-shadow: 0 0 15px var(--primary-glow);
+        }
 
-        /* Animaciones (Intersection Observer) */
+        /* Barras de Progreso Visuales */
+        .stat-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            overflow: hidden;
+            margin-top: 6px;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.5);
+        }
+        
+        .stat-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--secondary), var(--primary));
+            box-shadow: 0 0 10px var(--primary);
+            border-radius: 4px;
+            transform-origin: left;
+            animation: fillBar 1.5s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+        }
+
+        @keyframes fillBar {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        /* Intersection Observer Animations */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: translateY(50px) scale(0.98);
+            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
         }
-        
         .reveal.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) scale(1);
         }
-        
-        .delay-100 { transition-delay: 100ms; }
-        .delay-200 { transition-delay: 200ms; }
-        .delay-300 { transition-delay: 300ms; }
 
         /* Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--bg-base); }
-        ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--accent-main); }
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-color); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
     </style>
 </head>
-<body class="antialiased selection:bg-[var(--accent-main)] selection:text-white">
+<body class="antialiased selection:bg-[var(--primary)] selection:text-white">
 
-    <div class="grid-bg"></div>
-    <div class="ambient-glow"></div>
-    <div class="ambient-glow-2"></div>
+    <!-- Fondos -->
+    <div class="bg-layer-gradient"></div>
+    <div class="bg-layer-grid"></div>
+    <div class="noise-overlay"></div>
 
-    <nav class="fixed top-0 w-full z-50 bg-[var(--bg-base)]/60 backdrop-blur-xl border-b border-white/5 transition-all duration-300">
-        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
-            <!-- Logo -->
-            <a href="#hero" class="flex items-center gap-3 group">
-                <div class="w-10 h-10 rounded-lg border border-[var(--accent-main)]/30 flex items-center justify-center bg-[var(--accent-main)]/10 text-[var(--accent-main)] font-mono-tech font-bold transition-all group-hover:shadow-[0_0_15px_var(--accent-main)] group-hover:bg-[var(--accent-main)] group-hover:text-[var(--bg-base)]">
-                    JM
+    <nav class="fixed top-0 w-full z-50 bg-black/70 backdrop-blur-lg border-b border-[var(--glass-border)] transition-colors duration-300">
+        <div class="max-w-7xl mx-auto px-4 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <div class="w-8 h-8 rounded bg-gradient-to-br from-[var(--primary)] to-[var(--secondary)] flex items-center justify-center font-bold text-black shadow-[0_0_10px_var(--primary)]">
+                        JM
+                    </div>
+                    <a href="#hero" class="gta-font text-2xl tracking-widest text-white hover:text-[var(--primary)] transition-colors drop-shadow-md">
+                        SYS<span class="text-[var(--primary)]">.ACTIF</span>
+                    </a>
                 </div>
-                <span class="font-bold text-xl tracking-tight text-white group-hover:text-gray-300 transition-colors">
-                    JOSE<span class="text-gray-500 font-light">MANUEL</span>
-                </span>
-            </a>
-            
-            <!-- Enlaces de navegación (Desktop) -->
-            <div class="hidden md:flex items-center gap-8 font-medium text-sm text-[var(--text-secondary)]">
-                <a href="#profile" class="hover:text-white transition-colors">Perfil</a>
-                <a href="#stack" class="hover:text-white transition-colors">Stack Tecnológico</a>
-                <a href="#portfolio" class="hover:text-white transition-colors">Portfolio</a>
-                <a href="#trajectory" class="hover:text-white transition-colors">Trayectoria</a>
                 
-                <!-- Botón Toggle Tema -->
-                <button onclick="toggleTheme()" class="ml-4 flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 hover:border-[var(--accent-main)] bg-white/5 hover:bg-[var(--accent-main)]/10 text-white transition-all font-mono-tech text-xs">
-                    <i class="fas fa-terminal text-[var(--accent-main)]"></i> <span id="theme-label">SYS.DATA_MODE</span>
-                </button>
-            </div>
-            
-            <!-- Menú Móvil (Botón simple) -->
-            <div class="md:hidden">
-                <button onclick="toggleTheme()" class="p-2 text-[var(--accent-main)]">
-                    <i class="fas fa-terminal text-xl"></i>
-                </button>
+                <!-- Links Desktop -->
+                <div class="hidden md:flex items-baseline space-x-8">
+                    <a href="#arsenal" class="gta-font text-lg text-gray-300 hover:text-[var(--primary)] transition-colors uppercase">Arsenal</a>
+                    <a href="#misiones" class="gta-font text-lg text-gray-300 hover:text-[var(--primary)] transition-colors uppercase">Misiones</a>
+                    <a href="#historial" class="gta-font text-lg text-gray-300 hover:text-[var(--primary)] transition-colors uppercase">Facciones</a>
+                    <a href="#inventario" class="gta-font text-lg text-gray-300 hover:text-[var(--primary)] transition-colors uppercase">Inventario</a>
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <div>
+                    <button onclick="toggleTheme()" class="flex items-center gap-2 bg-white/5 border border-white/20 hover:border-[var(--primary)] text-white px-4 py-1.5 rounded-full transition-all text-sm font-mono group shadow-lg backdrop-blur-md">
+                        <i class="fas fa-power-off text-[var(--secondary)] group-hover:text-[var(--primary)] transition-colors"></i>
+                        <span class="hidden sm:inline font-bold tracking-wider">MODO</span>
+                    </button>
+                </div>
             </div>
         </div>
     </nav>
 
-    <header id="hero" class="relative min-h-screen flex flex-col justify-center pt-20 overflow-hidden">
-        <div class="max-w-7xl mx-auto px-6 w-full z-10">
-            <div class="reveal active max-w-4xl">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-md border border-[var(--accent-main)]/30 bg-[var(--accent-main)]/10 text-[var(--accent-main)] font-mono-tech text-xs mb-8">
-                    <span class="relative flex h-2 w-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--accent-main)] opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-[var(--accent-main)]"></span>
-                    </span>
-                    SISTEMA ACTIVO // CÁDIZ, ES
-                </div>
-                
-                <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold text-white tracking-tight mb-6 leading-tight">
-                    Arquitectura de Software,<br>
-                    <span class="text-gradient">Videojuegos & VR.</span>
-                </h1>
-                
-                <div class="pl-4 md:pl-6 border-l-2 border-[var(--accent-main)] mt-8">
-                    <p class="text-xl md:text-2xl text-[var(--text-secondary)] font-medium mb-2">
-                        Desarrollador Multiplataforma.
-                    </p>
-                    <p class="text-lg text-gray-400 font-mono-tech">
-                        > Evolucionando hacia la Arquitectura de Datos: <span class="text-white bg-[var(--accent-main)]/20 px-1 rounded">Ciberseguridad</span> y <span class="text-white bg-[var(--accent-sec)]/20 px-1 rounded">Big Data</span>.
-                    </p>
-                </div>
-                
-                <div class="mt-12 flex flex-wrap gap-4">
-                    <a href="#stack" class="px-8 py-3 rounded-lg bg-white text-black font-semibold hover:bg-gray-200 transition-colors flex items-center gap-2">
-                        Explorar Stack <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#portfolio" class="px-8 py-3 rounded-lg border border-white/20 text-white hover:border-white hover:bg-white/5 transition-colors font-mono-tech text-sm flex items-center">
-                        <i class="fas fa-code-branch mr-2"></i> init_portfolio();
-                    </a>
-                </div>
+    <header id="hero" class="min-h-screen flex flex-col justify-center items-center text-center relative px-4 pt-20">
+        <div class="reveal active z-10 w-full max-w-5xl mx-auto">
+            
+            <!-- Badge Nivel -->
+            <div class="mb-6 inline-flex items-center gap-3 bg-black/60 border border-[var(--primary)] px-5 py-2 rounded-full shadow-[0_0_15px_var(--primary-glow)] backdrop-blur-sm">
+                <i class="fas fa-star text-[var(--secondary)]"></i>
+                <span class="text-white font-mono font-bold tracking-widest text-sm">LEVEL 23</span>
+                <span class="text-[var(--primary)] font-mono text-sm border-l border-white/20 pl-3">BASE: CÁDIZ, ESPAÑA</span>
             </div>
+
+            <!-- Título Principal -->
+            <h1 class="gta-font text-7xl sm:text-9xl md:text-[10rem] text-white glow-text mb-2 tracking-tight" style="line-height: 0.85;">
+                <span class="text-gradient">JOSE</span>MANUEL
+            </h1>
+            
+            <h2 class="gta-font text-2xl md:text-4xl text-gray-300 mb-8 tracking-[0.3em] uppercase drop-shadow-lg">
+                Desarrollador de Videojuegos & Software <span class="text-[var(--primary)]">|</span> Piloto de Drones
+            </h2>
+            
+            <p class="text-lg md:text-xl font-light text-gray-200 max-w-3xl mx-auto bg-black/50 p-6 rounded-xl backdrop-blur-md border border-[var(--glass-border)] shadow-2xl leading-relaxed">
+                Especializado en tender puentes entre arquitecturas backend robustas y realidades virtuales (VR). Diseñando mecánicas precisas, mundos inmersivos y lógica multijugador.
+            </p>
+        </div>
+        
+        <!-- Indicador de scroll visual -->
+        <div class="absolute bottom-12 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
+            <span class="font-mono text-[var(--primary)] text-xs mb-2 tracking-widest uppercase">Scroll</span>
+            <i class="fas fa-angle-double-down text-white/50 text-2xl"></i>
         </div>
     </header>
 
-    <main class="relative z-10">
+    <main class="max-w-7xl mx-auto px-4 pb-24">
         
-        <section id="profile" class="py-24 border-t border-white/5 bg-gradient-to-b from-transparent to-black/30">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-                    
-                    <div class="lg:col-span-5 reveal">
-                        <!-- Representación visual técnica (Abstracta) -->
-                        <div class="relative w-full aspect-square glass-card flex items-center justify-center overflow-hidden group">
-                            <div class="absolute inset-0 bg-[url('https://placehold.co/600x600/111/333?text=SYS+ARCH')] bg-cover bg-center opacity-40 mix-blend-overlay grayscale group-hover:grayscale-0 transition-all duration-700"></div>
-                            
-                            <!-- Círculos concéntricos decorativos -->
-                            <div class="absolute w-64 h-64 border border-white/10 rounded-full animate-[spin_20s_linear_infinite]"></div>
-                            <div class="absolute w-48 h-48 border border-dashed border-[var(--accent-main)]/30 rounded-full animate-[spin_15s_linear_infinite_reverse]"></div>
-                            
-                            <div class="relative z-10 text-center">
-                                <i class="fas fa-microchip text-5xl text-[var(--text-secondary)] mb-4"></i>
-                                <div class="font-mono-tech text-xs text-[var(--accent-main)]">ID: JMRJ_2026</div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="lg:col-span-7 reveal delay-100">
-                        <h2 class="text-xs font-mono-tech text-[var(--accent-main)] tracking-widest uppercase mb-3">01. Perfil Profesional</h2>
-                        <h3 class="text-4xl md:text-5xl font-bold text-white mb-8">Visión Integral del Desarrollo</h3>
-                        
-                        <div class="space-y-6 text-[var(--text-secondary)] text-lg leading-relaxed">
-                            <p>
-                                Ubicado en Cádiz, poseo una sólida base como desarrollador multiplataforma capaz de abarcar el ciclo de vida completo del software. Mi enfoque va desde el diseño de mecánicas inmersivas en motores gráficos hasta la estructuración de la lógica de negocio en el servidor y la gestión de control de versiones.
-                            </p>
-                            <p>
-                                Entiendo la tecnología no solo como código, sino como arquitecturas eficientes y seguras. Por ello, mi proyección profesional actual se dirige decididamente hacia el procesamiento masivo de datos <strong class="text-white font-medium">(Big Data)</strong> y la protección de infraestructuras <strong class="text-white font-medium">(Ciberseguridad)</strong>, integrando la precisión técnica del desarrollo de sistemas con el análisis analítico.
-                            </p>
-                        </div>
-                        
-                        <div class="mt-10 grid grid-cols-2 md:grid-cols-4 gap-6 font-mono-tech text-sm">
-                            <div class="border-l border-white/10 pl-4">
-                                <div class="text-white font-bold text-xl mb-1">DAM</div>
-                                <div class="text-[var(--text-secondary)] text-xs">Grado Superior</div>
-                            </div>
-                            <div class="border-l border-white/10 pl-4">
-                                <div class="text-white font-bold text-xl mb-1">VR/3D</div>
-                                <div class="text-[var(--text-secondary)] text-xs">Especialización</div>
-                            </div>
-                            <div class="border-l border-[var(--accent-main)] pl-4">
-                                <div class="text-white font-bold text-xl mb-1">DATA</div>
-                                <div class="text-[var(--text-secondary)] text-xs">Target Actual</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <section id="arsenal" class="py-20 reveal">
+            <div class="flex items-center gap-4 mb-12">
+                <h2 class="gta-font text-5xl md:text-7xl text-gradient">01. ARSENAL TÉCNICO</h2>
+                <div class="h-1 flex-grow bg-gradient-to-r from-[var(--primary)] to-transparent opacity-30"></div>
             </div>
-        </section>
-
-        <section id="stack" class="py-24 border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="reveal mb-16">
-                    <h2 class="text-xs font-mono-tech text-[var(--accent-main)] tracking-widest uppercase mb-3">02. Core Tecnológico</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold text-white">Stack & Infraestructura</h3>
-                </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    
-                    <!-- Desarrollo -->
-                    <div class="glass-card p-8 reveal">
-                        <i class="fas fa-code text-2xl text-white mb-6"></i>
-                        <h4 class="text-lg font-bold text-white mb-6">Desarrollo Software</h4>
-                        <ul class="space-y-4 font-mono-tech text-sm text-[var(--text-secondary)]">
-                            <li class="flex items-center justify-between"><span class="text-white">C#</span> <span>Core</span></li>
-                            <li class="flex items-center justify-between"><span class="text-white">Java (Spring Boot)</span> <span>Backend</span></li>
-                            <li class="flex items-center justify-between"><span class="text-white">Python</span> <span>Scripts/Data</span></li>
-                        </ul>
-                    </div>
-
-                    <!-- Entornos -->
-                    <div class="glass-card p-8 reveal delay-100">
-                        <i class="fas fa-cube text-2xl text-white mb-6"></i>
-                        <h4 class="text-lg font-bold text-white mb-6">Motores & Entornos</h4>
-                        <ul class="space-y-4 font-mono-tech text-sm text-[var(--text-secondary)]">
-                            <li class="flex items-center justify-between"><span class="text-white">Unity 3D/2D</span> <span>Avanzado</span></li>
-                            <li class="flex items-center justify-between"><span class="text-white">Godot</span> <span>Intermedio</span></li>
-                            <li class="flex items-center justify-between"><span class="text-white">WebXR / A-Frame</span> <span>Inmersivo</span></li>
-                        </ul>
-                    </div>
-
-                    <!-- DevOps / Infra -->
-                    <div class="glass-card p-8 reveal delay-200">
-                        <i class="fas fa-server text-2xl text-white mb-6"></i>
-                        <h4 class="text-lg font-bold text-white mb-6">Infraestructura</h4>
-                        <ul class="space-y-4 font-mono-tech text-sm text-[var(--text-secondary)]">
-                            <li class="flex items-center justify-between"><span class="text-white">Docker</span> <span>Contenedores</span></li>
-                            <li class="flex items-center justify-between"><span class="text-white">Git / GitHub</span> <span>VCS</span></li>
-                            <li class="flex items-center justify-between"><span class="text-white">Maven</span> <span>Build</span></li>
-                        </ul>
-                    </div>
-
-                    <!-- Diseño / Assets -->
-                    <div class="glass-card p-8 reveal delay-300">
-                        <i class="fas fa-pen-nib text-2xl text-white mb-6"></i>
-                        <h4 class="text-lg font-bold text-white mb-6">Diseño & Assets</h4>
-                        <ul class="space-y-4 font-mono-tech text-sm text-[var(--text-secondary)]">
-                            <li class="flex items-center justify-between"><span class="text-white">Figma</span> <span>UI/UX</span></li>
-                            <li class="flex items-center justify-between"><span class="text-white">Blender</span> <span>Modelado</span></li>
-                            <li class="flex items-center justify-between"><span class="text-white">Tiled</span> <span>Levels</span></li>
-                        </ul>
-                    </div>
-                </div>
-
-                <!-- Proyección Estratégica -->
-                <div class="mt-8 glass-card p-8 border border-[var(--accent-main)]/30 bg-[var(--accent-main)]/5 reveal">
-                    <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Columna 1: Motores -->
+                <div class="glass-panel p-6">
+                    <div class="text-[var(--primary)] mb-4 text-3xl"><i class="fas fa-vr-cardboard"></i></div>
+                    <h3 class="gta-font text-3xl text-white mb-6">MOTORES & VR</h3>
+                    <div class="space-y-5">
                         <div>
-                            <div class="inline-flex items-center gap-2 text-[var(--accent-main)] font-mono-tech text-xs mb-2">
-                                <i class="fas fa-satellite-dish"></i> PROYECCIÓN ESTRATÉGICA
-                            </div>
-                            <h4 class="text-2xl font-bold text-white mb-2">Ciberseguridad & Big Data</h4>
-                            <p class="text-[var(--text-secondary)] text-sm max-w-2xl">
-                                Evolución natural del perfil hacia la estructuración, análisis y protección de grandes volúmenes de información en arquitecturas distribuidas.
-                            </p>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>UNITY 3D/2D</span> <span class="text-[var(--primary)]">90%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 90%;"></div></div>
                         </div>
-                        <div class="flex gap-4">
-                            <div class="w-12 h-12 rounded-full border border-[var(--accent-main)]/50 flex items-center justify-center text-[var(--accent-main)]">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <div class="w-12 h-12 rounded-full border border-[var(--accent-sec)]/50 flex items-center justify-center text-[var(--accent-sec)]">
-                                <i class="fas fa-database"></i>
-                            </div>
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>GODOT</span> <span class="text-[var(--primary)]">75%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 75%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>WEBXR / A-FRAME</span> <span class="text-[var(--primary)]">80%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 80%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna 2: Código -->
+                <div class="glass-panel p-6">
+                    <div class="text-[var(--secondary)] mb-4 text-3xl"><i class="fas fa-terminal"></i></div>
+                    <h3 class="gta-font text-3xl text-white mb-6">CÓDIGO & BACKEND</h3>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>C#</span> <span class="text-[var(--secondary)]">95%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 95%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>JAVA SPRING BOOT</span> <span class="text-[var(--secondary)]">85%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 85%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>PYTHON</span> <span class="text-[var(--secondary)]">80%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 80%;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>DOCKER</span> <span class="text-[var(--secondary)]">70%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 70%;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna 3: Networking -->
+                <div class="glass-panel p-6">
+                    <div class="text-purple-400 mb-4 text-3xl"><i class="fas fa-network-wired"></i></div>
+                    <h3 class="gta-font text-3xl text-white mb-6">NETWORKING</h3>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>MIRROR (UNITY)</span> <span class="text-purple-400">85%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 85%; background: linear-gradient(90deg, #9333ea, #d8b4fe); box-shadow: 0 0 10px #a855f7;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>PHOTON (PUN)</span> <span class="text-purple-400">80%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 80%; background: linear-gradient(90deg, #9333ea, #d8b4fe); box-shadow: 0 0 10px #a855f7;"></div></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Columna 4: Diseño -->
+                <div class="glass-panel p-6">
+                    <div class="text-blue-400 mb-4 text-3xl"><i class="fas fa-bezier-curve"></i></div>
+                    <h3 class="gta-font text-3xl text-white mb-6">DISEÑO VISUAL</h3>
+                    <div class="space-y-5">
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>FIGMA</span> <span class="text-blue-400">90%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 90%; background: linear-gradient(90deg, #2563eb, #93c5fd); box-shadow: 0 0 10px #3b82f6;"></div></div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between font-mono text-xs text-gray-300 mb-1"><span>BLENDER (3D)</span> <span class="text-blue-400">75%</span></div>
+                            <div class="stat-bar-container"><div class="stat-bar-fill" style="width: 75%; background: linear-gradient(90deg, #2563eb, #93c5fd); box-shadow: 0 0 10px #3b82f6;"></div></div>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="portfolio" class="py-24 border-t border-white/5 bg-black/20">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="reveal mb-16 flex flex-col md:flex-row md:items-end justify-between gap-6">
-                    <div>
-                        <h2 class="text-xs font-mono-tech text-[var(--accent-main)] tracking-widest uppercase mb-3">03. Repositorio de Proyectos</h2>
-                        <h3 class="text-4xl md:text-5xl font-bold text-white">Casos de Desarrollo</h3>
-                    </div>
-                    <a href="#" class="text-[var(--text-secondary)] hover:text-white font-mono-tech text-sm transition-colors border-b border-white/20 pb-1">
-                        Ver GitHub <i class="fas fa-external-link-alt ml-1 text-xs"></i>
-                    </a>
-                </div>
-
-                <div class="space-y-8">
-                    <!-- Proyecto 1 -->
-                    <div class="glass-card overflow-hidden group reveal">
-                        <div class="grid grid-cols-1 lg:grid-cols-12">
-                            <div class="lg:col-span-5 relative h-64 lg:h-auto border-b lg:border-b-0 lg:border-r border-white/10 overflow-hidden">
-                                <div class="absolute inset-0 bg-[url('https://placehold.co/800x600/151515/333?text=SPIN+ENGINE')] bg-cover bg-center grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
-                            </div>
-                            <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-center relative">
-                                <div class="absolute top-8 right-8 text-xs font-mono-tech text-green-400 bg-green-400/10 px-2 py-1 rounded">DEPLOIED // DIC 2025</div>
-                                <h4 class="text-2xl font-bold text-white mb-2 group-hover:text-[var(--accent-main)] transition-colors">Those Who Are About To Spin</h4>
-                                <p class="text-[var(--text-secondary)] font-mono-tech text-xs mb-6">SANDWISH STUDIO | PLATAFORMA: ITCH.IO</p>
-                                <p class="text-gray-300 mb-8 leading-relaxed">
-                                    Título independiente. Desarrollo enfocado en la implementación de mecánicas core, programación de físicas personalizadas y optimización estricta del bucle principal de juego.
-                                </p>
-                                <div class="flex flex-wrap gap-2 font-mono-tech text-xs text-[var(--accent-sec)]">
-                                    <span class="px-3 py-1 border border-[var(--accent-sec)]/30 rounded-full">Core Mechanics</span>
-                                    <span class="px-3 py-1 border border-[var(--accent-sec)]/30 rounded-full">Physics Engine</span>
-                                    <span class="px-3 py-1 border border-[var(--accent-sec)]/30 rounded-full">Optimization</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Proyecto 2 -->
-                    <div class="glass-card overflow-hidden group reveal">
-                        <div class="grid grid-cols-1 lg:grid-cols-12">
-                            <div class="lg:col-span-5 relative h-64 lg:h-auto border-b lg:border-b-0 lg:border-r border-white/10 overflow-hidden">
-                                <div class="absolute inset-0 bg-[url('https://placehold.co/800x600/151515/333?text=ASCENSOR+13')] bg-cover bg-center grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
-                            </div>
-                            <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-center relative">
-                                <div class="absolute top-8 right-8 text-xs font-mono-tech text-[var(--accent-sec)] bg-[var(--accent-sec)]/10 px-2 py-1 rounded">IN DEVELOPMENT</div>
-                                <h4 class="text-2xl font-bold text-white mb-2 group-hover:text-[var(--accent-main)] transition-colors">Ascensor 13</h4>
-                                <p class="text-[var(--text-secondary)] font-mono-tech text-xs mb-6">PROYECTO PERSONAL | EXPERIENCIA NARRATIVA</p>
-                                <p class="text-gray-300 mb-8 leading-relaxed">
-                                    Diseño de arquitectura de niveles inmersivos y gestión compleja de estados de software. Se implementaron patrones de diseño para controlar la narrativa ramificada y eventos secuenciales.
-                                </p>
-                                <div class="flex flex-wrap gap-2 font-mono-tech text-xs text-[var(--accent-sec)]">
-                                    <span class="px-3 py-1 border border-[var(--accent-sec)]/30 rounded-full">State Management</span>
-                                    <span class="px-3 py-1 border border-[var(--accent-sec)]/30 rounded-full">Level Architecture</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Proyecto 3 -->
-                    <div class="glass-card overflow-hidden group reveal">
-                        <div class="grid grid-cols-1 lg:grid-cols-12">
-                            <div class="lg:col-span-5 relative h-64 lg:h-auto border-b lg:border-b-0 lg:border-r border-white/10 overflow-hidden">
-                                <div class="absolute inset-0 bg-[url('https://placehold.co/800x600/151515/333?text=L.U.G.')] bg-cover bg-center grayscale opacity-60 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"></div>
-                            </div>
-                            <div class="lg:col-span-7 p-8 md:p-12 flex flex-col justify-center relative">
-                                <div class="absolute top-8 right-8 text-xs font-mono-tech text-gray-400 bg-white/10 px-2 py-1 rounded">CONCEPT PHASE</div>
-                                <h4 class="text-2xl font-bold text-white mb-2 group-hover:text-[var(--accent-main)] transition-colors">La Última Guardia</h4>
-                                <p class="text-[var(--text-secondary)] font-mono-tech text-xs mb-6">PROYECTO PERSONAL | AVENTURA GRÁFICA</p>
-                                <p class="text-gray-300 mb-8 leading-relaxed">
-                                    Aventura gráfica interactiva. Diseño centrado en bases de datos relacionales ligeras para persistencia de decisiones del usuario y diseño de niveles dinámicos generados por lógica.
-                                </p>
-                                <div class="flex flex-wrap gap-2 font-mono-tech text-xs text-[var(--accent-sec)]">
-                                    <span class="px-3 py-1 border border-[var(--accent-sec)]/30 rounded-full">Data Persistence</span>
-                                    <span class="px-3 py-1 border border-[var(--accent-sec)]/30 rounded-full">Logic Trees</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <section id="misiones" class="py-20 reveal">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="h-1 flex-grow bg-gradient-to-l from-[var(--primary)] to-transparent opacity-30"></div>
+                <h2 class="gta-font text-5xl md:text-7xl text-gradient">02. MISIONES PRINCIPALES</h2>
             </div>
-        </section>
-
-        <section id="trajectory" class="py-24 border-t border-white/5">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="reveal mb-16">
-                    <h2 class="text-xs font-mono-tech text-[var(--accent-main)] tracking-widest uppercase mb-3">04. Historial Operativo</h2>
-                    <h3 class="text-4xl md:text-5xl font-bold text-white">Formación & Experiencia</h3>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-16">
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                
+                <!-- Proyecto 1 -->
+                <div class="glass-panel group min-h-[400px] flex flex-col justify-end p-0 cursor-default">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black z-10"></div>
+                    <div class="absolute inset-0 bg-[url('https://placehold.co/600x400/222/ff2a75?text=SPIN')] bg-cover bg-center group-hover:scale-110 transition-transform duration-700 z-0 opacity-40"></div>
                     
-                    <!-- Base Académica -->
-                    <div class="relative">
-                        <h4 class="text-xl font-bold text-white mb-10 flex items-center gap-3">
-                            <i class="fas fa-graduation-cap text-[var(--accent-main)]"></i> Base Académica Técnica
-                        </h4>
-                        
-                        <div class="absolute left-[15px] top-[70px] bottom-0 w-px bg-gradient-to-b from-white/20 to-transparent"></div>
-                        
-                        <div class="space-y-12 pl-10 reveal">
-                            <div class="relative">
-                                <div class="absolute -left-[45px] top-1 w-3 h-3 rounded-full bg-[var(--accent-main)] shadow-[0_0_10px_var(--accent-main)]"></div>
-                                <div class="text-[var(--accent-main)] font-mono-tech text-xs mb-1">Especialización</div>
-                                <h5 class="text-lg font-bold text-white">Desarrollo de Videojuegos y VR</h5>
-                                <p class="text-[var(--text-secondary)] text-sm mt-2">Aplicación de lógicas complejas en motores 3D y realidades extendidas.</p>
-                            </div>
-                            
-                            <div class="relative">
-                                <div class="absolute -left-[45px] top-1 w-3 h-3 rounded-full bg-white/50 border border-white"></div>
-                                <div class="text-gray-400 font-mono-tech text-xs mb-1">Grado Superior</div>
-                                <h5 class="text-lg font-bold text-white">DAM (Desarrollo Multiplataforma)</h5>
-                                <p class="text-[var(--text-secondary)] text-sm mt-2">Arquitecturas de software, bases de datos, APIs REST y control de versiones corporativo.</p>
-                            </div>
-
-                            <div class="relative">
-                                <div class="absolute -left-[45px] top-1 w-3 h-3 rounded-full bg-white/20"></div>
-                                <div class="text-gray-500 font-mono-tech text-xs mb-1">Grado Medio</div>
-                                <h5 class="text-lg font-bold text-gray-400">Equipos de Telecomunicaciones</h5>
-                                <p class="text-[var(--text-secondary)] text-sm mt-2">Fundamentos de hardware, redes e infraestructura física.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Operaciones y Gestión -->
-                    <div class="relative">
-                        <h4 class="text-xl font-bold text-white mb-10 flex items-center gap-3">
-                            <i class="fas fa-briefcase text-[var(--accent-sec)]"></i> Operaciones y Gestión
-                        </h4>
-                        
-                        <div class="absolute left-[15px] top-[70px] bottom-0 w-px bg-gradient-to-b from-white/20 to-transparent"></div>
-                        
-                        <div class="space-y-12 pl-10 reveal delay-100">
-                            <div class="relative">
-                                <div class="absolute -left-[45px] top-1 w-3 h-3 rounded-full bg-[var(--accent-sec)] shadow-[0_0_10px_var(--accent-sec)]"></div>
-                                <div class="text-[var(--accent-sec)] font-mono-tech text-xs mb-1">Logística y Almacenaje</div>
-                                <h5 class="text-lg font-bold text-white">Operador Logístico <span class="font-normal text-gray-400">| JYSK</span></h5>
-                                <p class="text-[var(--text-secondary)] text-sm mt-2">Gestión de inventario masivo, trabajo bajo presión y resolución inmediata de cuellos de botella operativos en un entorno de alto volumen.</p>
-                            </div>
-                            
-                            <div class="relative">
-                                <div class="absolute -left-[45px] top-1 w-3 h-3 rounded-full bg-white/30 border border-white/50"></div>
-                                <div class="text-gray-400 font-mono-tech text-xs mb-1">Atención y Coordinación</div>
-                                <h5 class="text-lg font-bold text-gray-300">Equipo de Sala/Cocina <span class="font-normal text-gray-500">| McDonald's</span></h5>
-                                <p class="text-[var(--text-secondary)] text-sm mt-2">Dinámica estricta de trabajo en equipo sincronizado. Mantenimiento de estándares de calidad bajo estrés y alta demanda horaria.</p>
-                            </div>
-                        </div>
+                    <div class="relative z-20 p-8">
+                        <div class="inline-block bg-[var(--primary)] text-black font-bold font-mono text-xs px-2 py-1 mb-3 shadow-[0_0_10px_var(--primary)]">COMPLETADA</div>
+                        <h3 class="gta-font text-5xl text-white mb-1 drop-shadow-lg">THOSE WHO ARE ABOUT TO SPIN</h3>
+                        <p class="text-[var(--secondary)] font-bold uppercase tracking-wider text-sm mb-3">Sandwish Studio</p>
+                        <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                            Desarrollo de mecánicas core, físicas avanzadas y optimización del bucle de juego para este título independiente publicado en Itch.io.
+                        </p>
                     </div>
                 </div>
+
+                <!-- Proyecto 2 -->
+                <div class="glass-panel group min-h-[400px] flex flex-col justify-end p-0 cursor-default">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black z-10"></div>
+                    <div class="absolute inset-0 bg-[url('https://placehold.co/600x400/222/ff9e00?text=ASCENSOR+13')] bg-cover bg-center group-hover:scale-110 transition-transform duration-700 z-0 opacity-40"></div>
+                    
+                    <div class="relative z-20 p-8">
+                        <div class="inline-block bg-[var(--secondary)] text-black font-bold font-mono text-xs px-2 py-1 mb-3 shadow-[0_0_10px_var(--secondary)] animate-pulse">EN DESARROLLO</div>
+                        <h3 class="gta-font text-5xl text-white mb-1 drop-shadow-lg">ASCENSOR 13</h3>
+                        <p class="text-gray-400 font-bold uppercase tracking-wider text-sm mb-3">Proyecto Personal</p>
+                        <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                            Experiencia narrativa y de mecánicas inmersivas. Arquitectura de niveles y gestión compleja de estados de juego de suspense.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Proyecto 3 -->
+                <div class="glass-panel group min-h-[400px] flex flex-col justify-end p-0 cursor-default">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-black/50 to-black z-10"></div>
+                    <div class="absolute inset-0 bg-[url('https://placehold.co/600x400/222/a855f7?text=GUARDIA')] bg-cover bg-center group-hover:scale-110 transition-transform duration-700 z-0 opacity-40"></div>
+                    
+                    <div class="relative z-20 p-8">
+                        <div class="inline-block bg-purple-500 text-white font-bold font-mono text-xs px-2 py-1 mb-3 shadow-[0_0_10px_purple]">CONCEPTUAL</div>
+                        <h3 class="gta-font text-5xl text-white mb-1 drop-shadow-lg">LA ÚLTIMA GUARDIA</h3>
+                        <p class="text-gray-400 font-bold uppercase tracking-wider text-sm mb-3">Proyecto Personal</p>
+                        <p class="text-gray-300 text-sm mb-4 leading-relaxed">
+                            Aventura interactiva con un fuerte peso en el diseño de guion, toma de decisiones ramificadas y diseño de niveles dinámicos.
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </section>
 
-        <section id="inventory" class="py-24 border-t border-white/5 bg-black/20">
-            <div class="max-w-7xl mx-auto px-6">
-                <div class="reveal mb-16 text-center max-w-2xl mx-auto">
-                    <h2 class="text-xs font-mono-tech text-[var(--accent-main)] tracking-widest uppercase mb-3">05. Módulos Auxiliares</h2>
-                    <h3 class="text-3xl md:text-4xl font-bold text-white mb-4">Competencias Transversales & Licencias</h3>
-                    <p class="text-[var(--text-secondary)] text-sm">Habilidades complementarias que aportan perspectiva analítica, disciplina y capacidad de gestión de recursos al perfil técnico base.</p>
+        <section id="historial" class="py-20 reveal">
+            <div class="flex items-center gap-4 mb-16">
+                <h2 class="gta-font text-5xl md:text-7xl text-gradient">03. HISTORIAL DE FACCIONES</h2>
+                <div class="h-1 flex-grow bg-gradient-to-r from-[var(--primary)] to-transparent opacity-30"></div>
+            </div>
+
+            <div class="relative border-l-4 border-white/10 pl-8 ml-4 md:ml-12 space-y-12">
+                
+                <!-- Trabajo 1 -->
+                <div class="relative group">
+                    <div class="absolute -left-[45px] w-8 h-8 bg-black border-4 border-[var(--primary)] rounded-full group-hover:bg-[var(--primary)] transition-colors shadow-[0_0_15px_var(--primary-glow)]"></div>
+                    <div class="glass-panel p-6 md:p-8 ml-4">
+                        <span class="text-[var(--primary)] font-mono font-bold tracking-widest text-sm mb-2 block">ACTUALIDAD</span>
+                        <h3 class="gta-font text-4xl text-white mb-1">Desarrollador Junior (Software & VR)</h3>
+                        <p class="text-gray-300 leading-relaxed max-w-3xl">
+                            Construcción de lógicas multijugador, optimización de mecánicas en motores gráficos (Unity, Godot) y desarrollo de APIs en Backend.
+                        </p>
+                    </div>
                 </div>
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    
-                    <!-- Drones -->
-                    <div class="glass-card p-6 reveal">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-10 h-10 rounded bg-white/5 flex items-center justify-center text-white border border-white/10">
-                                <i class="fas fa-drone"></i>
-                            </div>
-                            <h4 class="font-bold text-white">Operativa Aérea AESA</h4>
-                        </div>
-                        <p class="text-[var(--text-secondary)] text-sm font-mono-tech text-xs mb-2">CERTIFICACIÓN: A1/A3</p>
-                        <p class="text-gray-400 text-sm">Piloto certificado. Capacidad para levantamiento de datos topográficos, fotogrametría e inspección visual aérea de infraestructuras.</p>
+                <!-- Trabajo 2 -->
+                <div class="relative group">
+                    <div class="absolute -left-[45px] w-8 h-8 bg-black border-4 border-[var(--secondary)] rounded-full group-hover:bg-[var(--secondary)] transition-colors"></div>
+                    <div class="glass-panel p-6 md:p-8 ml-4 opacity-90">
+                        <span class="text-[var(--secondary)] font-mono font-bold tracking-widest text-sm mb-2 block">HISTÓRICO</span>
+                        <h3 class="gta-font text-4xl text-white mb-1">Operador Logístico - JYSK</h3>
+                        <p class="text-gray-300 leading-relaxed max-w-3xl">
+                            Gestión de inventario de alto volumen, trabajo bajo presión y resolución rápida de problemas operativos en almacén.
+                        </p>
                     </div>
-
-                    <!-- Motor -->
-                    <div class="glass-card p-6 reveal delay-100">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-10 h-10 rounded bg-white/5 flex items-center justify-center text-white border border-white/10">
-                                <i class="fas fa-car"></i>
-                            </div>
-                            <h4 class="font-bold text-white">Ingeniería Automotriz</h4>
-                        </div>
-                        <p class="text-[var(--text-secondary)] text-sm font-mono-tech text-xs mb-2">LICENCIA: CLASE B (>3 AÑOS)</p>
-                        <p class="text-gray-400 text-sm">Pasión por la mecánica y optimización del motor (Mustang, Challenger SRT, motocicletas). Enfoque en eficiencia de sistemas físicos.</p>
-                    </div>
-
-                    <!-- Inversión -->
-                    <div class="glass-card p-6 reveal delay-200">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-10 h-10 rounded bg-white/5 flex items-center justify-center text-white border border-white/10">
-                                <i class="fas fa-chart-pie"></i>
-                            </div>
-                            <h4 class="font-bold text-white">Estrategia Financiera</h4>
-                        </div>
-                        <p class="text-[var(--text-secondary)] text-sm font-mono-tech text-xs mb-2">FOCUS: LONG-TERM / ETFs</p>
-                        <p class="text-gray-400 text-sm">Análisis de mercados, gestión de riesgo e inversión a largo plazo utilizando plataformas corporativas (Trading 212). Visión analítica de datos.</p>
-                    </div>
-
-                    <!-- Astrofotografía -->
-                    <div class="glass-card p-6 reveal">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-10 h-10 rounded bg-white/5 flex items-center justify-center text-white border border-white/10">
-                                <i class="fas fa-satellite"></i>
-                            </div>
-                            <h4 class="font-bold text-white">Astrofotografía & Óptica</h4>
-                        </div>
-                        <p class="text-[var(--text-secondary)] text-sm font-mono-tech text-xs mb-2">EQUIPO: XIAOMI 14T PRO / SONY</p>
-                        <p class="text-gray-400 text-sm">Observación astronómica, captura de espacio profundo y optimización de sensores de luz mediante parámetros manuales.</p>
-                    </div>
-
-                    <!-- Gastronomía -->
-                    <div class="glass-card p-6 reveal delay-100">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-10 h-10 rounded bg-white/5 flex items-center justify-center text-white border border-white/10">
-                                <i class="fas fa-utensils"></i>
-                            </div>
-                            <h4 class="font-bold text-white">Dirección Gastronómica</h4>
-                        </div>
-                        <p class="text-[var(--text-secondary)] text-sm font-mono-tech text-xs mb-2">DISCIPLINA CULINARIA</p>
-                        <p class="text-gray-400 text-sm">Proyección en Dirección de Cocina. Capacidad de innovación, seguimiento de procesos estrictos (recetas como algoritmos) y control de calidad.</p>
-                    </div>
-
-                    <!-- Filosofía -->
-                    <div class="glass-card p-6 reveal delay-200">
-                        <div class="flex items-center gap-4 mb-4">
-                            <div class="w-10 h-10 rounded bg-white/5 flex items-center justify-center text-white border border-white/10">
-                                <i class="fas fa-brain"></i>
-                            </div>
-                            <h4 class="font-bold text-white">Análisis Crítico</h4>
-                        </div>
-                        <p class="text-[var(--text-secondary)] text-sm font-mono-tech text-xs mb-2">MARCO: NIETZSCHEANO</p>
-                        <p class="text-gray-400 text-sm">Desarrollo de pensamiento lateral y capacidad analítica abstracta, fundamental para el diseño de arquitecturas lógicas complejas.</p>
-                    </div>
-
                 </div>
+
+                <!-- Trabajo 3 -->
+                <div class="relative group">
+                    <div class="absolute -left-[45px] w-8 h-8 bg-black border-4 border-gray-600 rounded-full group-hover:bg-gray-400 transition-colors"></div>
+                    <div class="glass-panel p-6 md:p-8 ml-4 opacity-70">
+                        <span class="text-gray-400 font-mono font-bold tracking-widest text-sm mb-2 block">INICIOS</span>
+                        <h3 class="gta-font text-3xl text-gray-200 mb-1">Equipo de Restauración - McDonald's</h3>
+                        <p class="text-gray-400 leading-relaxed max-w-3xl">
+                            Trabajo sincronizado en equipo de alto rendimiento, atención al detalle y mantenimiento de estándares de calidad estrictos.
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <section id="inventario" class="py-20 mb-20 reveal">
+            <div class="flex items-center gap-4 mb-12">
+                <div class="h-1 flex-grow bg-gradient-to-l from-[var(--primary)] to-transparent opacity-30"></div>
+                <h2 class="gta-font text-5xl md:text-7xl text-gradient text-right">04. INVENTARIO & MISIONES SECUNDARIAS</h2>
+            </div>
+
+            <p class="text-center text-gray-400 mb-10 max-w-2xl mx-auto font-mono text-sm border border-white/10 p-4 rounded bg-black/30">
+                [SISTEMA]: Inspeccionando base de datos personal. Cargando habilidades pasivas, licencias y aficiones del jugador.
+            </p>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                
+                <!-- Cocina -->
+                <div class="glass-panel p-6 group flex flex-col items-center text-center hover:border-orange-500">
+                    <div class="w-20 h-20 bg-black/80 rounded-xl rotate-45 flex items-center justify-center border border-white/10 group-hover:border-orange-500 group-hover:shadow-[0_0_20px_rgba(249,115,22,0.5)] transition-all mb-8">
+                        <i class="fas fa-fire-burner text-3xl text-gray-400 group-hover:text-orange-500 -rotate-45"></i>
+                    </div>
+                    <h4 class="gta-font text-2xl text-white mb-2">GASTRONOMÍA</h4>
+                    <p class="text-sm text-gray-400">Preparando el Grado Superior en <strong class="text-orange-400">Dirección de Cocina</strong>. Precisión, técnica y creatividad culinaria.</p>
+                </div>
+
+                <!-- Astro -->
+                <div class="glass-panel p-6 group flex flex-col items-center text-center hover:border-[var(--primary)]">
+                    <div class="w-20 h-20 bg-black/80 rounded-xl rotate-45 flex items-center justify-center border border-white/10 group-hover:border-[var(--primary)] group-hover:shadow-[0_0_20px_var(--primary-glow)] transition-all mb-8">
+                        <i class="fas fa-meteor text-3xl text-gray-400 group-hover:text-[var(--primary)] -rotate-45"></i>
+                    </div>
+                    <h4 class="gta-font text-2xl text-white mb-2">ASTROFOTOGRAFÍA</h4>
+                    <p class="text-sm text-gray-400">Cazando eclipses y espacio profundo. Equipamiento táctico: <strong class="text-[var(--primary)]">Xiaomi 14T Pro (Leica)</strong> y sensores Sony.</p>
+                </div>
+
+                <!-- Motor -->
+                <div class="glass-panel p-6 group flex flex-col items-center text-center hover:border-red-500">
+                    <div class="w-20 h-20 bg-black/80 rounded-xl rotate-45 flex items-center justify-center border border-white/10 group-hover:border-red-500 group-hover:shadow-[0_0_20px_rgba(239,68,68,0.5)] transition-all mb-8">
+                        <i class="fas fa-car-burst text-3xl text-gray-400 group-hover:text-red-500 -rotate-45"></i>
+                    </div>
+                    <h4 class="gta-font text-2xl text-white mb-2">CULTURA MOTOR (PERMISO B)</h4>
+                    <p class="text-sm text-gray-400">Afición por la potencia pura: <strong class="text-red-400">Ford Mustang, Challenger SRT Demon, BMW M4</strong> y <strong class="text-green-400">Kawasaki Ninja</strong>.</p>
+                </div>
+
+                <!-- Fitness -->
+                <div class="glass-panel p-6 group flex flex-col items-center text-center hover:border-green-500">
+                    <div class="w-20 h-20 bg-black/80 rounded-xl rotate-45 flex items-center justify-center border border-white/10 group-hover:border-green-500 group-hover:shadow-[0_0_20px_rgba(34,197,94,0.5)] transition-all mb-8">
+                        <i class="fas fa-hand-fist text-3xl text-gray-400 group-hover:text-green-500 -rotate-45"></i>
+                    </div>
+                    <h4 class="gta-font text-2xl text-white mb-2">ENTRENAMIENTO FÍSICO</h4>
+                    <p class="text-sm text-gray-400">Mejorando stats de fuerza y estamina: <strong class="text-green-400">Gym, Running, Boxeo y Calistenia</strong>.</p>
+                </div>
+
+                <!-- Filosofia -->
+                <div class="glass-panel p-6 group flex flex-col items-center text-center hover:border-purple-400">
+                    <div class="w-20 h-20 bg-black/80 rounded-xl rotate-45 flex items-center justify-center border border-white/10 group-hover:border-purple-400 group-hover:shadow-[0_0_20px_rgba(192,132,252,0.5)] transition-all mb-8">
+                        <i class="fas fa-book-skull text-3xl text-gray-400 group-hover:text-purple-400 -rotate-45"></i>
+                    </div>
+                    <h4 class="gta-font text-2xl text-white mb-2">CONOCIMIENTO & FILOSOFÍA</h4>
+                    <p class="text-sm text-gray-400">Lecturas reflexivas. Gran influencia de la obra de <strong class="text-purple-300">Nietzsche</strong> (ej. <em>Así habló Zaratustra</em>).</p>
+                </div>
+
+                <!-- Finanzas -->
+                <div class="glass-panel p-6 group flex flex-col items-center text-center hover:border-blue-400">
+                    <div class="w-20 h-20 bg-black/80 rounded-xl rotate-45 flex items-center justify-center border border-white/10 group-hover:border-blue-400 group-hover:shadow-[0_0_20px_rgba(96,165,250,0.5)] transition-all mb-8">
+                        <i class="fas fa-chart-line text-3xl text-gray-400 group-hover:text-blue-400 -rotate-45"></i>
+                    </div>
+                    <h4 class="gta-font text-2xl text-white mb-2">FINANZAS & INVERSIÓN</h4>
+                    <p class="text-sm text-gray-400">Gestión de recursos in-game. <strong class="text-blue-300">Inversión a largo plazo</strong> utilizando plataformas como Trading 212.</p>
+                </div>
+
+                <!-- Drones -->
+                <div class="glass-panel p-6 group flex flex-col items-center text-center hover:border-[var(--secondary)] md:col-span-2 xl:col-span-2">
+                    <div class="w-20 h-20 bg-black/80 rounded-xl flex items-center justify-center border border-white/10 group-hover:border-[var(--secondary)] group-hover:shadow-[0_0_20px_rgba(255,158,0,0.5)] transition-all mb-6">
+                        <i class="fas fa-drone text-4xl text-gray-400 group-hover:text-[var(--secondary)]"></i>
+                    </div>
+                    <h4 class="gta-font text-3xl text-white mb-2">LICENCIA: PILOTO DE DRONES</h4>
+                    <p class="text-sm text-gray-400 max-w-md">Certificación oficial <strong class="text-[var(--secondary)]">AESA (Categoría A1/A3)</strong>. Manejo de hardware aéreo para fotogrametría, escaneo de terrenos y tomas cinematográficas.</p>
+                </div>
+
             </div>
         </section>
 
     </main>
 
-    <footer class="border-t border-white/10 bg-black py-12 relative z-10">
-        <div class="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-6">
-            
-            <div class="flex items-center gap-3">
-                <div class="w-8 h-8 rounded bg-[var(--accent-main)]/10 text-[var(--accent-main)] font-mono-tech font-bold flex items-center justify-center border border-[var(--accent-main)]/30">JM</div>
-                <span class="text-white font-bold tracking-widest text-lg">JOSEMANUEL</span>
-            </div>
-
-            <div class="flex gap-6">
-                <a href="#" class="text-[var(--text-secondary)] hover:text-white transition-colors"><i class="fab fa-github text-xl"></i></a>
-                <a href="#" class="text-[var(--text-secondary)] hover:text-white transition-colors"><i class="fab fa-linkedin text-xl"></i></a>
-                <a href="#" class="text-[var(--text-secondary)] hover:text-white transition-colors"><i class="fas fa-envelope text-xl"></i></a>
-            </div>
-
-            <div class="text-center md:text-right font-mono-tech text-xs text-gray-500">
-                <p>CONNECTION: SECURE // PORT: 2026</p>
-                <p>&copy; 2026 JOSE MANUEL REYES. ALL RIGHTS RESERVED.</p>
-            </div>
+    <footer class="bg-black/95 border-t border-[var(--glass-border)] py-16 text-center relative z-10 shadow-[0_-10px_30px_rgba(0,0,0,0.8)]">
+        <h2 class="gta-font text-5xl text-white mb-2 tracking-widest">JOSEMANUEL</h2>
+        <p class="text-[var(--primary)] text-sm mb-10 font-mono tracking-widest uppercase">END OF FILE // SAVE CORRUPTED? [N] // CONTINUE [Y]</p>
+        
+        <div class="flex justify-center gap-10 mb-10">
+            <a href="#" class="text-gray-500 hover:text-[var(--primary)] transition-all hover:-translate-y-2 text-4xl hover:drop-shadow-[0_0_10px_var(--primary)]"><i class="fab fa-github"></i></a>
+            <a href="#" class="text-gray-500 hover:text-[var(--secondary)] transition-all hover:-translate-y-2 text-4xl hover:drop-shadow-[0_0_10px_var(--secondary)]"><i class="fab fa-linkedin"></i></a>
+            <a href="#" class="text-gray-500 hover:text-[var(--primary)] transition-all hover:-translate-y-2 text-4xl hover:drop-shadow-[0_0_10px_var(--primary)]"><i class="fab fa-itch-io"></i></a>
         </div>
+        
+        <p class="text-xs text-gray-600 font-mono">&copy; 2026. STATE OF LEONIDA. ALL SYS RIGHTS RESERVED.</p>
     </footer>
 
+    <!-- Scripts -->
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            // Lógica para animaciones al hacer scroll (Reveal)
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.15
-            };
-
-            const observer = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
+            // Intersection Observer para Animaciones Fluidas (Reveal)
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
                     if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        // Opcional: Dejar de observar una vez revelado
-                        // observer.unobserve(entry.target);
+                        entry.target.classList.add("active");
                     }
                 });
-            }, observerOptions);
-
-            document.querySelectorAll('.reveal').forEach((el) => {
-                observer.observe(el);
+            }, {
+                threshold: 0.1, // Se activa cuando el 10% del elemento es visible
+                rootMargin: "0px 0px -50px 0px"
             });
 
-            // Recuperar tema preferido de localStorage
-            const savedTheme = localStorage.getItem('techTheme');
-            const themeLabel = document.getElementById('theme-label');
-            
-            if(savedTheme === 'cyber') {
-                document.documentElement.classList.add('theme-cyber');
-                if(themeLabel) themeLabel.innerText = "SYS.DEFAULT_MODE";
+            const hiddenElements = document.querySelectorAll('.reveal');
+            hiddenElements.forEach((el) => observer.observe(el));
+
+            // Comprobar preferencia de tema guardado
+            const savedTheme = localStorage.getItem('gtaTheme');
+            if(savedTheme === 'heist') {
+                document.documentElement.classList.add('theme-heist');
             }
         });
 
-        // Función para alternar temas (Sunset Tech vs Cyber Data)
+        // Alternador de Temas (Sunset Rosa <-> Heist Lime)
         function toggleTheme() {
             const htmlEl = document.documentElement;
-            const themeLabel = document.getElementById('theme-label');
+            htmlEl.classList.toggle('theme-heist');
             
-            htmlEl.classList.toggle('theme-cyber');
-            
-            if(htmlEl.classList.contains('theme-cyber')) {
-                localStorage.setItem('techTheme', 'cyber');
-                if(themeLabel) themeLabel.innerText = "SYS.DEFAULT_MODE";
+            // Guardar preferencia
+            if(htmlEl.classList.contains('theme-heist')) {
+                localStorage.setItem('gtaTheme', 'heist');
             } else {
-                localStorage.setItem('techTheme', 'sunset');
-                if(themeLabel) themeLabel.innerText = "SYS.DATA_MODE";
+                localStorage.setItem('gtaTheme', 'sunset');
             }
         }
     </script>
